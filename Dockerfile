@@ -23,5 +23,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the server
-CMD ["poetry", "run", "python", "app.py"]
-
+CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
