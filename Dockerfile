@@ -20,7 +20,7 @@ RUN poetry install --no-root
 COPY . .
 
 # Expose the port
-EXPOSE 8000
+EXPOSE 9000
 
 # Command to run the server
-CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
+CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:9000", "app:app"]

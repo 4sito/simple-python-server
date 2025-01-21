@@ -1,0 +1,37 @@
+services:
+  selenium3:
+    image: selenium/standalone-firefox:latest
+    container_name: selenium3
+    ports:
+      - "4444:4444"
+    shm_size: 2g
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - "5001:9000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/app
+    depends_on:
+      selenium3:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  profile:
