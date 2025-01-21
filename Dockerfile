@@ -9,6 +9,9 @@ ENV POETRY_VERSION=1.6.1 \
 # Install Poetry
 RUN pip install --no-cache-dir poetry
 
+# Install curl 
+RUN apt-get update && apt-get install -y curl
+
 # Create and set the working directory
 WORKDIR /app
 
