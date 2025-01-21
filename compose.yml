@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     container_name: app
     ports:
-      - "5001:9000"
+      - "9000:9000"
     volumes:
       - .:/app
     environment:
@@ -33,6 +33,16 @@ services:
     depends_on:
       selenium3:
         condition: service_healthy
+    labels:
+      - coolify.managed=true
+      - coolify.applicationId=5
+      - coolify.type=application
+      - traefik.enable=true
+      - "traefik.http.routers.<unique_router_name>.rule=Host(`messages.changanetwork.top`) && PathPrefix(`/`)"
+      - traefik.http.routers.<unique_router_name>.entryPoints=https
+      - traefik.http.routers.<unique_router_name>.tls=true
+      - traefik.http.routers.<unique_router_name>.tls.certresolver=le
+      - traefik.http.services.<unique_service_name>.loadbalancer.server.port=9000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000"]
       interval: 5s
