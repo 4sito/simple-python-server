@@ -18,18 +18,11 @@ services:
       dockerfile: Dockerfile
     container_name: app
     ports:
-      - "9000:9000"
+      - ":9000"
     volumes:
       - .:/app
     environment:
       - PYTHONPATH=/app/app
-    labels:
-      - coolify.managed=true
-      - coolify.applicationId=5
-      - coolify.type=application
-      - traefik.enable=true
-      - "traefik.http.routers.app-dogcoscwwgs400w4w08oksws-195756735275.rule=Host(`messages.changanetwork.top`) && PathPrefix(`/`)"
-      - traefik.http.routers.app-dogcoscwwgs400w4w08oksws-195756735275.entryPoints=http
     depends_on:
       selenium3:
         condition: service_healthy
