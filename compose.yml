@@ -27,10 +27,11 @@ services:
       selenium3:
         condition: service_healthy
     labels:
-      - coolify.managed=true
-      - coolify.applicationId=5
-      - coolify.type=application
       - traefik.enable=true
+      - traefik.http.routers.app-secured.rule=Host(`your-custom-domain.com`)
+      - traefik.http.routers.app-secured.entrypoints=https
+      - traefik.http.routers.app-secured.tls=true
+      - traefik.http.routers.app-secured.tls.certresolver=lets-encrypt
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000"]
       interval: 5s
