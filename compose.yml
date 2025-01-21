@@ -28,7 +28,7 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.app-secured.rule=Host(`your-custom-domain.com`)
+      - traefik.http.routers.app-secured.rule=Host(`messages.changanetwork.top`)
       - traefik.http.routers.app-secured.entrypoints=https
       - traefik.http.routers.app-secured.tls=true
       - traefik.http.routers.app-secured.tls.certresolver=lets-encrypt
